@@ -1,5 +1,5 @@
 describe('BasicFunctions', () => {
-    const BASE_URL = 'https://localhost:49183/' //add base url after run
+    const BASE_URL = 'https://localhost:32809/' //add base url after run
     it('Should load homepage', () => {
         cy.visit(BASE_URL);
     })
@@ -13,6 +13,13 @@ describe('BasicFunctions', () => {
     it('Should ensure that pushing a button adds class and removes onlick', () => {
         cy.get('#answers').children().first().click();
         cy.get('#answers').children().first().should('not.have.attr', 'onclick');
-        cy.get('#answers').children().first().should('have.class', 'incorrect');
-    })     
+        cy.get('#answers').children().first().should('satisfy', ($el) => {
+            const classList = Array.from($el[0].classList);
+            return classList.includes('correct') || classList.includes('incorrect')
+        });
+    })
+    it('Should return to the homepage in order to reset the state of the webapp', () => {
+        cy.visit(BASE_URL);
+        cy.url().should('eq', BASE_URL);
+    })
 })
