@@ -1,5 +1,5 @@
 describe('BasicFunctions', () => {
-    const BASE_URL = 'https://localhost:32809/' //add base url after run
+    const BASE_URL = 'https://localhost:32873/' //add base url after run
     it('Should load homepage', () => {
         cy.visit(BASE_URL);
     })
